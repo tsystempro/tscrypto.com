@@ -155,6 +155,10 @@
       }
     }
 
+    // 5) Logo image — the subtitle "Инвестиционная экосистема" is baked into the
+    // PNG, so we swap to a localised English logo (TRADE SYSTEM / INVESTMENT ECOSYSTEM).
+    swapLogos(en);
+
     document.title = en ? TITLE_EN : TITLE_RU;
     document.documentElement.setAttribute('lang', lang);
     markActive(lang);
@@ -222,6 +226,25 @@
       var fs = Math.max(28, natFs * targetW / natW);
       s12.style.setProperty('font-size', fs + 'px', 'important');
       s17.style.setProperty('font-size', fs + 'px', 'important');
+    }
+  }
+
+  // Localised logo: the Russian original has "Инвестиционная экосистема" baked in;
+  // the English file shows "INVESTMENT ECOSYSTEM". Swap every full-size logo
+  // reference (src / data-original), leaving the tiny lazy-load placeholder alone.
+  var LOGO_RU = 'images/tild6666-6362-4661-b434-363931643965__logo_tc.png';
+  var LOGO_EN = 'images/logo_tc_en.png';
+  function swapLogos(en) {
+    var target = en ? LOGO_EN : LOGO_RU;
+    var imgs = document.getElementsByTagName('img');
+    for (var i = 0; i < imgs.length; i++) {
+      var img = imgs[i];
+      ['src', 'data-original'].forEach(function (attr) {
+        var v = img.getAttribute(attr);
+        if (v && v.indexOf('logo_tc') > -1 && v.indexOf('resize') < 0 && v !== target) {
+          img.setAttribute(attr, target);
+        }
+      });
     }
   }
 
