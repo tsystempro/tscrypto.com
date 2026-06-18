@@ -24,8 +24,11 @@
   var PAIRS_FLAT = [["Начать торговлю","Start trading"],["Узнать подробнее","Learn more"],["Регистрация","Registration"],["Отправить приглашение","Send invitation"],["Задать вопрос","Ask a question"],["Вступить сообщество","Join the community"],["Мы используем cookie","We use cookies"],["Файлы cookie помогают сайту работать стабильнее и удобнее. Оставаясь здесь, вы соглашаетесь с их использованием.","Cookies help the site run more smoothly and conveniently. By staying here, you agree to their use."],["Принять","Accept"],["Отклонить","Decline"],["Практика","Practice"],["Развитие","Development"],["Контроль","Control"],["Обучение через реальные сделки, а не теорию","Learning through real trades, not theory"],["Рост навыков на каждом этапе работы","Skill growth at every stage of work"],["Прозрачная система отчётности и сопровождение","Transparent reporting and support"],["Терминал","Terminal"],["Возможности","Features"],["О нас","About"],["Войти","Log in"]];
   var TITLE_RU = "Торговая платформа для криптотрейдинга с единым доступом ко всем популярным биржам";
   var TITLE_EN = "Crypto trading platform with unified access to all popular exchanges";
-  var DESC_RU = "Trade System — инвестиционная экосистема для криптотрейдинга с единым доступом ко всем популярным биржам. Обучение через реальные сделки, прозрачная отчётность и сопровождение на каждом этапе.";
-  var DESC_EN = "Trade System — an investment ecosystem for crypto trading with unified access to all popular exchanges. Learning through real trades, transparent reporting and support at every stage.";
+  // og:title can differ from the <title> tag (shorter, brand-led for social cards).
+  var OG_TITLE_RU = "Trade System — торговый терминал для криптотрейдинга";
+  var OG_TITLE_EN = "Trade System — crypto trading terminal";
+  var DESC_RU = "Торговый терминал для криптотрейдинга на 12 биржах — Trade System. Единый аккаунт, встроенный риск-менеджмент, Challenge с призами до $15 000. Регистрация бесплатна.";
+  var DESC_EN = "Crypto trading terminal across 12 exchanges — Trade System. Single account, built-in risk management, Challenge with prizes up to $15,000. Free registration.";
   // Each language has its own crawlable URL so search engines index both:
   //   Russian → https://tscrypto.com/   (this index.html)
   //   English → https://tscrypto.com/en/ (nginx serves the SAME index.html at /en/;
@@ -442,7 +445,7 @@
     if (canon) canon.setAttribute('href', url);
     var set = function (m, v) { if (m) m.setAttribute('content', v); };
     set(metaByProp('og:url'), url);
-    set(metaByProp('og:title'), en ? TITLE_EN : TITLE_RU);
+    set(metaByProp('og:title'), en ? OG_TITLE_EN : OG_TITLE_RU);
     set(metaByProp('og:description'), en ? DESC_EN : DESC_RU);
     set(metaByProp('og:locale'), en ? 'en_US' : 'ru_RU');
     set(metaByProp('og:locale:alternate'), en ? 'ru_RU' : 'en_US');
