@@ -1,0 +1,364 @@
+/* ───────────────────────────────────────────────────────────────
+   Blog (tscrypto.com) — статические страницы /blogs и /blogs/:slug.
+   Дизайн наследует визуал Tilda-сайта: Montserrat, бирюза #00d3c8,
+   тёмный фон #070f12, «стеклянные» карточки. HTML генерится скриптом
+   TradeSystemBackend/scripts/generate-tscrypto-blog.ts (классы .tsb-*).
+   ─────────────────────────────────────────────────────────────── */
+
+:root {
+  --tsb-accent: #00d3c8;
+  --tsb-bg: #070f12;
+  --tsb-card-from: #0d2e35;
+  --tsb-card-to: #061318;
+  --tsb-border: rgba(0, 211, 200, 0.18);
+  --tsb-border-soft: rgba(255, 255, 255, 0.08);
+  --tsb-text: #ffffff;
+  --tsb-text-dim: rgba(255, 255, 255, 0.72);
+  --tsb-text-mute: rgba(255, 255, 255, 0.5);
+  --tsb-radius: 16px;
+  --tsb-maxw: 1180px;
+}
+
+* { box-sizing: border-box; }
+
+body.tsb {
+  margin: 0;
+  background: var(--tsb-bg);
+  color: var(--tsb-text);
+  font-family: 'Montserrat', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.tsb-container {
+  width: 100%;
+  max-width: var(--tsb-maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.tsb-main { flex: 1 0 auto; padding: 120px 0 80px; }
+
+/* ── Шапка ── */
+.tsb-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(7, 15, 18, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--tsb-border-soft);
+}
+.tsb-topbar__in {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  max-width: var(--tsb-maxw);
+  margin: 0 auto;
+  padding: 12px 24px;
+}
+.tsb-topbar__logo img { height: 34px; display: block; }
+.tsb-topbar__nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin: 0 auto;
+}
+.tsb-topbar__nav a {
+  font-size: 15px;
+  font-weight: 500;
+  color: #fff;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+.tsb-topbar__nav a:hover,
+.tsb-topbar__nav a.is-active { color: var(--tsb-accent); }
+.tsb-topbar__actions { display: flex; align-items: center; gap: 14px; }
+.tsb-topbar__login {
+  font-size: 15px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+.tsb-topbar__login:hover { color: var(--tsb-accent); }
+.tsb-topbar__cta {
+  background: var(--tsb-accent);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 6px;
+  border: 1px solid var(--tsb-accent);
+  transition: all 0.2s ease;
+}
+.tsb-topbar__cta:hover { background: transparent; color: var(--tsb-accent); }
+
+/* язык */
+.tsb-lang {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--tsb-border-soft);
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.tsb-lang:hover { color: var(--tsb-accent); border-color: var(--tsb-border); }
+.tsb-lang__menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 132px;
+  background: linear-gradient(168deg, #0d2e35, #061318);
+  border: 1px solid var(--tsb-border);
+  border-radius: 12px;
+  padding: 6px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+  display: none;
+}
+.tsb-lang__menu.is-open { display: block; }
+.tsb-lang__menu button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  color: var(--tsb-text-dim);
+  font-family: inherit;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.tsb-lang__menu button:hover,
+.tsb-lang__menu button.is-current { color: #fff; background: rgba(255, 255, 255, 0.06); }
+
+/* ── Заголовок листинга ── */
+.tsb-list__head { margin-bottom: 28px; }
+.tsb-list__title {
+  font-size: 42px;
+  font-weight: 800;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+.tsb-list__lead { color: var(--tsb-text-dim); font-size: 18px; margin: 0; }
+
+/* ── Табы ── */
+.tsb-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.tsb-tab {
+  background: transparent;
+  border: 1px solid var(--tsb-border-soft);
+  color: var(--tsb-text-dim);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 9px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.tsb-tab:hover { color: #fff; border-color: var(--tsb-border); }
+.tsb-tab.is-active {
+  color: #042c2a;
+  background: var(--tsb-accent);
+  border-color: var(--tsb-accent);
+}
+
+/* ── Сетка карточек ── */
+.tsb-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.tsb-empty { color: var(--tsb-text-mute); grid-column: 1 / -1; padding: 40px 0; }
+
+.tsb-card {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(168deg, var(--tsb-card-from) 0%, var(--tsb-card-to) 100%);
+  border: 1px solid var(--tsb-border-soft);
+  border-radius: var(--tsb-radius);
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.tsb-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--tsb-border);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+.tsb-card.is-pinned { border-color: var(--tsb-border); }
+.tsb-card__media {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: #04181c;
+  overflow: hidden;
+}
+.tsb-card__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tsb-card__noimg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0, 211, 200, 0.18), transparent 70%);
+}
+.tsb-card__pin {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #042c2a;
+  background: var(--tsb-accent);
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+.tsb-card__body { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.tsb-card__tag {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tsb-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.tsb-card__title { font-size: 19px; font-weight: 700; margin: 0; line-height: 1.3; }
+.tsb-card__title a:hover { color: var(--tsb-accent); }
+.tsb-card__text { color: var(--tsb-text-dim); font-size: 14.5px; margin: 0; }
+.tsb-card__more { margin-top: auto; color: var(--tsb-accent); font-weight: 600; font-size: 14px; }
+
+/* ── Пагинация ── */
+.tsb-pagination {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 40px;
+}
+.tsb-pagination button {
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  background: transparent;
+  border: 1px solid var(--tsb-border-soft);
+  color: var(--tsb-text-dim);
+  border-radius: 10px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.tsb-pagination button:hover:not(:disabled) { color: #fff; border-color: var(--tsb-border); }
+.tsb-pagination button.is-active {
+  color: #042c2a;
+  background: var(--tsb-accent);
+  border-color: var(--tsb-accent);
+}
+.tsb-pagination button:disabled { opacity: 0.35; cursor: default; }
+
+/* ── Статья ── */
+.tsb-breadcrumbs {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+  color: var(--tsb-text-mute);
+  margin-bottom: 22px;
+}
+.tsb-breadcrumbs a:hover { color: var(--tsb-accent); }
+.tsb-post { max-width: 820px; }
+.tsb-post__title { font-size: 38px; font-weight: 800; line-height: 1.2; margin: 0 0 16px; letter-spacing: -0.02em; }
+.tsb-post__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  color: var(--tsb-text-mute);
+  font-size: 14px;
+  margin-bottom: 26px;
+}
+.tsb-post__author { color: var(--tsb-text-dim); font-weight: 600; }
+.tsb-post__hero {
+  border-radius: var(--tsb-radius);
+  overflow: hidden;
+  margin-bottom: 30px;
+  border: 1px solid var(--tsb-border-soft);
+}
+.tsb-post__hero img { width: 100%; display: block; }
+
+.tsb-post__content { font-size: 17px; color: var(--tsb-text-dim); }
+.tsb-post__content h2 { color: #fff; font-size: 27px; font-weight: 700; margin: 36px 0 14px; }
+.tsb-post__content h3 { color: #fff; font-size: 21px; font-weight: 700; margin: 28px 0 12px; }
+.tsb-post__content p { margin: 0 0 18px; }
+.tsb-post__content a { color: var(--tsb-accent); text-decoration: underline; }
+.tsb-post__content ul,
+.tsb-post__content ol { margin: 0 0 18px; padding-left: 22px; }
+.tsb-post__content li { margin-bottom: 8px; }
+.tsb-post__content img { max-width: 100%; height: auto; border-radius: 12px; margin: 8px 0; }
+.tsb-post__content blockquote {
+  margin: 22px 0;
+  padding: 14px 20px;
+  border-left: 3px solid var(--tsb-accent);
+  background: rgba(0, 211, 200, 0.06);
+  color: #fff;
+  border-radius: 0 10px 10px 0;
+}
+.tsb-post__content pre {
+  background: #04181c;
+  border: 1px solid var(--tsb-border-soft);
+  border-radius: 12px;
+  padding: 16px;
+  overflow: auto;
+}
+.tsb-post__back {
+  display: inline-block;
+  margin: 34px 0 0;
+  color: var(--tsb-accent);
+  font-weight: 600;
+}
+
+/* ── Похожие ── */
+.tsb-related { margin-top: 64px; }
+.tsb-related__title { font-size: 26px; font-weight: 700; margin: 0 0 22px; }
+
+/* ── Футер ── */
+.tsb-footer {
+  flex-shrink: 0;
+  border-top: 1px solid var(--tsb-border-soft);
+  padding: 26px 0;
+}
+.tsb-footer__in {
+  max-width: var(--tsb-maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+  color: var(--tsb-text-mute);
+  font-size: 14px;
+}
+
+/* ── Адаптив ── */
+@media (max-width: 980px) {
+  .tsb-grid { grid-template-columns: repeat(2, 1fr); }
+  .tsb-topbar__nav { display: none; }
+}
+@media (max-width: 620px) {
+  .tsb-main { padding: 96px 0 60px; }
+  .tsb-grid { grid-template-columns: 1fr; }
+  .tsb-list__title { font-size: 32px; }
+  .tsb-post__title { font-size: 28px; }
+  .tsb-topbar__login { display: none; }
+}
