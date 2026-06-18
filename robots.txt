@@ -10,4 +10,4 @@ Disallow: /tilda/event*
 Disallow:
 
 
-Sitemap: http://trade-system.tilda.ws/sitemap.xml
+Sitemap: https://tscrypto.com/sitemap.xml

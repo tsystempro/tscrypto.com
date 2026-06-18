@@ -21,15 +21,24 @@
   'use strict';
 
   var PAIRS_HTML = [["Торговая платформа для криптотрейдинга <span style=\"color: rgb(0, 211, 200);\">с</span> <span style=\"color: rgb(0, 211, 200);\">единым доступом</span> ко всем популярным биржам","Crypto trading platform with <span style=\"color: rgb(0, 211, 200);\">unified access</span> to all popular exchanges"],["Управляйте всеми сделками в одном терминале <span style=\"font-weight: 600;\">с минимальными комиссиями и высокой скоростью исполнения</span>","Manage all your trades in a single terminal <span style=\"font-weight: 600;\">with minimal fees and high execution speed</span>"],["<a href=\"https://lk.tscrypto.com/login\"target=\"_blank\"style=\"color: inherit\">Войти</a>","<a href=\"https://lk.tscrypto.com/login\"target=\"_blank\"style=\"color: inherit\">Log in</a>"],["<a href=\"#terminal\"style=\"color: inherit\">Терминал</a>","<a href=\"#terminal\"style=\"color: inherit\">Terminal</a>"],["<a href=\"#features\"style=\"color: inherit\">Возможности</a>","<a href=\"#features\"style=\"color: inherit\">Features</a>"],["<a href=\"#about\"style=\"color: inherit\">О нас</a>","<a href=\"#about\"style=\"color: inherit\">About</a>"],["12 лет","12 years"],["17 бирж","17 exchanges"],["На рынке криптотрейдинга","In crypto trading"],["Надежных партнеров","Reliable partners"],["Вся инфраструктура трейдинга <span style=\"color: rgb(0, 211, 200);\">собрана в одном месте</span>","All trading infrastructure <span style=\"color: rgb(0, 211, 200);\">in one place</span>"],["Терминал и брокер объединены в одну систему","Terminal and broker combined into one system"],["Терминал SmartDOM","SmartDOM Terminal"],["Предоставляем удобный интерфейс для детального анализа рынка и управления всеми вашими сделками в реальном времени","We provide a convenient interface for detailed market analysis and managing all your trades in real time"],["Криптоброкер","Crypto broker"],["Подключение к биржам и управление ликвидностью через единый аккаунт, переключение между биржами и перевод средств в один клик","Connect to exchanges and manage liquidity through a single account, switch between exchanges and transfer funds in one click"],["Терминал + технологии","Terminal + technology"],["Инфраструктура","Infrastructure"],["Предоставляем удобный интерфейс для детального анализа рынка и управления всеми вашими сделками в реальном","We provide a convenient interface for detailed market analysis and managing all your trades in real time"],["Гибкая настройка терминала","Flexible terminal customization"],["Рабочее пространство под себя: стаканы, графики и горячие клавиши","A workspace tailored to you: order books, charts and hotkeys"],["Единая инфраструктура для криптотрейдинга","Unified infrastructure for crypto trading"],["Управляйте торговлей на разных биржах из одного пространства","Manage trading across different exchanges from a single space"],["Быстрое исполнение ордеров","Fast order execution"],["Минимальная задержка и высокая скорость работы при волатильности","Minimal latency and high speed during volatility"],["Профессиональный стакан и анализ ликвидности","Professional order book and liquidity analysis"],["Глубина рынка, лента сделок, плотности и кластеры в одном интерфейсе","Market depth, time & sales, density and clusters in one interface"],["Личный дневник сделок","Personal trading journal"],["Автоматическая статистика, история сделок и анализ результатов вашей торговли","Automatic statistics, trade history and analysis of your trading results"],["Подключение бирж<br />и регистрация","Exchange connection<br />and registration"],["Подключение к системе и удобная регистрация без сложных настроек и лишних действий","Connect to the system and register easily, with no complex setup or unnecessary steps"],["Риск-менеджер","Risk manager"],["Контроль просадки, лимитов<br />и объёма позиций для защиты депозита и стабильной торговли","Control of drawdown, limits<br />and position size to protect your deposit and trade steadily"],["Партнерская программа<br />и наставничество","Partner program<br />and mentorship"],["Получайте вознаграждение за приглашённых трейдеров и развивайтесь внутри сообщества","Earn rewards for invited traders and grow within the community"],["Challenge","Challenge"],["Участвуйте в конкурсах Trade System, улучшайте свои результаты и получайте денежные премии за успешную торговлю","Take part in Trade System challenges, improve your results and earn cash rewards for successful trading"],["Бесплатный Challenge","Free Challenge"],["Идеальный вариант для трейдеров. Участие бесплатно<br />без ограничений по времени","The perfect option for traders. Participation is free<br />with no time limits"],["Прозрачный контроль прогресса","Transparent progress tracking"],["Вы всегда видите текущий прогресс выполнения, количество торговых сессий и прибыль относительно","You always see your current progress, the number of trading sessions and your relative profit"],["PRO Challenge","PRO Challenge"],["Для трейдеров, готовых бороться<br />за повышенные призы. Увеличенные денежные премии до $15 000","For traders ready to compete<br />for bigger prizes. Increased cash rewards up to $15,000"],["Денежные премии<br />за результат","Cash rewards<br />for results"],["Получайте дополнительные выплаты<br />до $15 000 сверх своей торговой прибыли за успешную торговлю","Get additional payouts<br />up to $15,000 on top of your trading profit for successful trading"],["<span style=\"color: rgb(0, 211, 200);\">Ключевые возможности,</span><br />доступные каждому","<span style=\"color: rgb(0, 211, 200);\">Key features,</span><br />available to everyone"],["Детальный анализ рынка","Detailed market analysis"],["Управление рисками","Risk management"],["Несколько аккаунтов","Multiple accounts"],["Автоматизация процессов","Process automation"],["Продвинутые графики и инструменты","Advanced charts and tools"],["Риск-менеджмент встроен в терминал","Risk management built into the terminal"],["Управление всеми вашими средствами в одном месте","Manage all your funds in one place"],["Максимальное упрощение торговых процессов","Maximum simplification of trading processes"],["Все инструменты доступны вам прямо в интерфейсе торговли","All tools available right in the trading interface"],["Интеграция с терминалом","Terminal integration"],["Система помогает вам избегать кричических просадок","The system helps you avoid critical drawdowns"],["Защита вашего депозита","Protection of your deposit"],["Задавайте собственные лимиты<br />на убытки и прибыль","Set your own limits<br />on losses and profit"],["Контроль дневного лимита","Daily limit control"],["Ограничивайте убытки автоматически при достижении заданного уровня","Limit losses automatically when a set level is reached"],["Автоблокировка при просадке","Auto-lock on drawdown"],["<span style=\"color: rgb(0, 211, 200);\">Контроль рисков </span>в каждой сделке","<span style=\"color: rgb(0, 211, 200);\">Risk control </span>in every trade"],["Риск-менеджмент встроен в терминал и работает в реальном времени","Risk management is built into the terminal and works in real time"],["<span style=\"color: rgb(0, 211, 200);\">Начать работу</span><br />с платформой просто","<span style=\"color: rgb(0, 211, 200);\">Getting started</span><br />with the platform is simple"],["Подключись и начни торговать за несколько минут","Connect and start trading in just a few minutes"],["01","01"],["Создайте аккаунт","Create an account"],["Пройдите быструю <u style=\"color: rgb(0, 211, 200);\"><a href=\"https://lk.tscrypto.com/register\" style=\"color: rgb(0, 211, 200);\" target=\"_blank\" rel=\"noreferrer noopener\">регистрацию</a></u><br />и получите доступ к платформе.<br />Без сложных настроек","Complete a quick <u style=\"color: rgb(0, 211, 200);\"><a href=\"https://lk.tscrypto.com/register\" style=\"color: rgb(0, 211, 200);\" target=\"_blank\" rel=\"noreferrer noopener\">registration</a></u><br />and get access to the platform.<br />No complex setup"],["02","02"],["Подключите биржу","Connect an exchange"],["Добавьте API ключи и управляйте аккаунтами из одного интерфейса<br />Без переноса баланса","Add API keys and manage accounts from a single interface<br />No balance transfer required"],["03","03"],["Откройте терминал","Open the terminal"],["Получите доступ ко всем необходимым инструментам анализа и торговли.<br />Все рынки собраны в одном окне","Get access to all the analysis and trading tools you need.<br />All markets in one window"],["04","04"],["Начните торговать","Start trading"],["Открывайте сделки, управляйте позициями и контролируйте результат<br />Без переключения между биржами","Open trades, manage positions and control your results<br />Without switching between exchanges"],["<span style=\"color: rgb(0, 211, 200);\">Комфортная среда</span> для роста трейдера","<span style=\"color: rgb(0, 211, 200);\">A comfortable environment</span> for a trader’s growth"],["Мы не просто обучаем, а создаем среду, где трейдер зарабатывает, развивается и контролирует риски","We don’t just teach — we create an environment where traders earn, grow and manage risk"],["<span style=\"color: rgb(0, 211, 200);\">Гарантируем безопасность</span>","<span style=\"color: rgb(0, 211, 200);\">We guarantee security</span>"],["и контроль ваших средств","and control of your funds"],["Ваши средства<br />на бирже","Your funds<br />on the exchange"],["Нет доступа<br />к выводу","No access<br />to withdrawals"],["Вы сохраняете полный контроль над активами — платформа не имеет доступа к выводу средств","You keep full control over your assets — the platform has no access to withdraw funds"],["Защита API ключей","API key protection"],["Контроль в ваших руках","Control is in your hands"],["Ваши активы хранятся на вашем аккаунте","Your assets are stored in your own account"],["Мы используем API ключи только для торговли","We use API keys for trading only"],["Все данные шифруются<br />и хранятся безопасно","All data is encrypted<br />and stored securely"],["Вы можете отключить доступ к любой момент","You can revoke access at any time"],["<span style=\"color: rgb(0, 211, 200);\">Развивайтесь и зарабатывайте в</span><br />нашей развивающейся экосистеме","<span style=\"color: rgb(0, 211, 200);\">Grow and earn in</span><br />our evolving ecosystem"],["Приглашайте новых пользователей, участвуйте в жизни активной платформы и получайте дополнительный пассивный доход","Invite new users, take part in an active platform and earn extra passive income"],["Сообщество трейдеров","Trader community"],["Обменивайтесь ценным опытом, следите за обновлениями платформы и <span style=\"font-weight: 500;\">развивайтесь вместе с другими участниками сообщества</span>","Share valuable experience, follow platform updates and <span style=\"font-weight: 500;\">grow together with other community members</span>"],["Реферальная программа","Referral program"],["Приглашайте пользователей и получайте процент от их торговой активности, <span style=\"font-weight: 500;\">без ограничений по приглашениям и автоматическими выплатами</span>","Invite users and earn a percentage of their trading activity, <span style=\"font-weight: 500;\">with no limits on invitations and automatic payouts</span>"],["Подключитесь и управляйте всеми сделками из одного интерфейса","Connect and manage all your trades from a single interface"],["Получите доступ сразу к <span style=\"font-weight: 600;\">нескольким биржам, быстрые сделки и полный контроль позиций</span>, собранный в одной платформе","Get instant access to <span style=\"font-weight: 600;\">multiple exchanges, fast trades and full position control</span>, all in one platform"],["<u>Пользовательское соглашение</u>","<u>Terms of Service</u>"],["<u>Политика конфиденциальности</u>","<u>Privacy Policy</u>"],["2026 ©Trade System","2026 ©Trade System"],["<a href=\"https://marketing102.ru/\"target=\"_blank\"style=\"color: inherit\">Сайт разработан в Маркетинг 102</a>","<a href=\"https://marketing102.ru/\"target=\"_blank\"style=\"color: inherit\">Website developed by Marketing 102</a>"]];
-  var PAIRS_FLAT = [["Начать торговлю","Start trading"],["Узнать подробнее","Learn more"],["Регистрация","Registration"],["Отправить приглашение","Send invitation"],["Задать вопрос","Ask a question"],["Вступить сообщество","Join the community"],["Мы используем cookie","We use cookies"],["Файлы cookie помогают сайту работать стабильнее и удобнее. Оставаясь здесь, вы соглашаетесь с их использованием.","Cookies help the site run more smoothly and conveniently. By staying here, you agree to their use."],["Принять","Accept"],["Отклонить","Decline"],["Практика","Practice"],["Развитие","Development"],["Контроль","Control"],["Обучение через реальные сделки, а не теорию","Learning through real trades, not theory"],["Рост навыков на каждом этапе работы","Skill growth at every stage of work"],["Прозрачная система отчётности и сопровождение","Transparent reporting and support"]];
+  var PAIRS_FLAT = [["Начать торговлю","Start trading"],["Узнать подробнее","Learn more"],["Регистрация","Registration"],["Отправить приглашение","Send invitation"],["Задать вопрос","Ask a question"],["Вступить сообщество","Join the community"],["Мы используем cookie","We use cookies"],["Файлы cookie помогают сайту работать стабильнее и удобнее. Оставаясь здесь, вы соглашаетесь с их использованием.","Cookies help the site run more smoothly and conveniently. By staying here, you agree to their use."],["Принять","Accept"],["Отклонить","Decline"],["Практика","Practice"],["Развитие","Development"],["Контроль","Control"],["Обучение через реальные сделки, а не теорию","Learning through real trades, not theory"],["Рост навыков на каждом этапе работы","Skill growth at every stage of work"],["Прозрачная система отчётности и сопровождение","Transparent reporting and support"],["Терминал","Terminal"],["Возможности","Features"],["О нас","About"],["Войти","Log in"]];
   var TITLE_RU = "Торговая платформа для криптотрейдинга с единым доступом ко всем популярным биржам";
   var TITLE_EN = "Crypto trading platform with unified access to all popular exchanges";
+  var DESC_RU = "Trade System — инвестиционная экосистема для криптотрейдинга с единым доступом ко всем популярным биржам. Обучение через реальные сделки, прозрачная отчётность и сопровождение на каждом этапе.";
+  var DESC_EN = "Trade System — an investment ecosystem for crypto trading with unified access to all popular exchanges. Learning through real trades, transparent reporting and support at every stage.";
+  // Each language has its own crawlable URL so search engines index both:
+  //   Russian → https://tscrypto.com/   (this index.html)
+  //   English → https://tscrypto.com/en/ (nginx serves the SAME index.html at /en/;
+  //             the path is detected below and the page is forced into English).
+  var URL_RU = "https://tscrypto.com/";
+  var URL_EN = "https://tscrypto.com/en/";
   var COOKIE = 'site_lang';
 
   // Plain leaf text holders (translate textContent only, keep structure)
   var LEAF_SELECTOR = '.tn-atom__button-text, .ts-menu-link span, .ts-menu-btn,' +
     ' .topbar__login, .topbar__cta, .ck-title, .ck-desc, #ckAccept, #ckDecline,' +
-    ' .m102-card__title, .m102-card__text, .pp-title';
+    ' .m102-card__title, .m102-card__text, .pp-title,' +
+    ' .topbar__nav a, .nav-link .tn-atom a';
 
   // Full English versions of the legal modal bodies (translate the whole block
   // at once; the original Russian innerHTML is cached and restored for RU).
@@ -161,6 +170,7 @@
 
     document.title = en ? TITLE_EN : TITLE_RU;
     document.documentElement.setAttribute('lang', lang);
+    updateSeo(lang);
     markActive(lang);
     place();
     balanceStats();
@@ -323,9 +333,13 @@
       li.addEventListener('click', function (e) {
         e.stopPropagation();
         var lang = li.getAttribute('data-lang');
+        var current = pathLang() === 'en' ? 'en' : 'ru';
         setCookie(COOKIE, lang, 365);
-        apply(lang);
         close();
+        if (lang === current) return;       // already on this language's URL
+        // Navigate to the language's own URL so the address bar, canonical and
+        // shared links all reflect the chosen language.
+        window.location.assign(lang === 'en' ? '/en/' : '/');
       });
     });
     document.addEventListener('click', function (e) {
@@ -381,6 +395,60 @@
     }
   }
 
+  // ---- URL <-> language --------------------------------------------------
+  // The path is authoritative: /en or /en/... is the English version,
+  // everything else is Russian. This keeps each URL deterministic for crawlers.
+  function pathLang() {
+    try {
+      return /^\/en(\/|$)/i.test(window.location.pathname) ? 'en' : null;
+    } catch (e) { return null; }
+  }
+  // Legacy ?lang= links (kept working so any already-shared URLs don't break).
+  function queryLang() {
+    try {
+      var m = (window.location.search || '').match(/[?&]lang=(ru|en)\b/i);
+      return m ? m[1].toLowerCase() : null;
+    } catch (e) { return null; }
+  }
+  function redirectTo(path) {
+    try { window.location.replace(path + (window.location.hash || '')); }
+    catch (e) { window.location.href = path; }
+  }
+
+  // ---- SEO meta, kept in sync with the rendered language ------------------
+  function metaByProp(prop) {
+    var m = document.head && document.head.querySelector('meta[property="' + prop + '"]');
+    if (!m && document.head) {
+      m = document.createElement('meta');
+      m.setAttribute('property', prop);
+      document.head.appendChild(m);
+    }
+    return m;
+  }
+  function metaByName(name) {
+    var m = document.head && document.head.querySelector('meta[name="' + name + '"]');
+    if (!m && document.head) {
+      m = document.createElement('meta');
+      m.setAttribute('name', name);
+      document.head.appendChild(m);
+    }
+    return m;
+  }
+  function updateSeo(lang) {
+    if (!document.head) return;
+    var en = lang === 'en';
+    var url = en ? URL_EN : URL_RU;
+    var canon = document.head.querySelector('link[rel="canonical"]');
+    if (canon) canon.setAttribute('href', url);
+    var set = function (m, v) { if (m) m.setAttribute('content', v); };
+    set(metaByProp('og:url'), url);
+    set(metaByProp('og:title'), en ? TITLE_EN : TITLE_RU);
+    set(metaByProp('og:description'), en ? DESC_EN : DESC_RU);
+    set(metaByProp('og:locale'), en ? 'en_US' : 'ru_RU');
+    set(metaByProp('og:locale:alternate'), en ? 'ru_RU' : 'en_US');
+    set(metaByName('description'), en ? DESC_EN : DESC_RU);
+  }
+
   // ---- language detection ---------------------------------------------
   function offlineGuess() {
     try {
@@ -420,19 +488,29 @@
       }
     }
 
-    var saved = getCookie(COOKIE);
-    if (saved === 'ru' || saved === 'en') { apply(saved); schedule(); return; }
+    // On the English URL (/en/...): force English, no detection, no redirect.
+    if (pathLang() === 'en') {
+      setCookie(COOKIE, 'en', 365);
+      apply('en');
+      schedule();
+      return;
+    }
 
-    apply('ru');           // show native Russian, then refine by IP
+    // From here on we are on the Russian URL "/".
+    // Honour a legacy ?lang=en link by moving the visitor to the /en/ page.
+    if (queryLang() === 'en') { redirectTo('/en/'); return; }
+
+    var saved = getCookie(COOKIE);
+    if (saved === 'en') { redirectTo('/en/'); return; }   // returning EN visitor → /en/
+    if (saved === 'ru') { apply('ru'); schedule(); return; }
+
+    // First visit on "/": render native Russian, then refine by IP.
+    // If the visitor is outside the Russian-speaking region, send them to /en/.
+    apply('ru');
     detectByIp(function (country) {
-      var lang;
-      if (country) {
-        lang = RU_COUNTRIES[country] ? 'ru' : 'en';
-        setCookie(COOKIE, lang, 365);
-      } else {
-        lang = offlineGuess();
-      }
-      apply(lang);
+      var lang = country ? (RU_COUNTRIES[country] ? 'ru' : 'en') : offlineGuess();
+      setCookie(COOKIE, lang, 365);
+      if (lang === 'en') redirectTo('/en/');
     });
     schedule();
   }
