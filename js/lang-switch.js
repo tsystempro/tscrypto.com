@@ -182,6 +182,7 @@
     markActive(lang);
     place();
     balanceStats();
+    placeHeroNav();
   }
 
   // Re-render a circular CTA's characters around the ring (same math as the
@@ -482,9 +483,128 @@
     })();
   }
 
-  // ---- init ------------------------------------------------------------
+  // ---- hero navigation -------------------------------------------------
+  // Hero-меню — это Tilda Zero Block: каждый пункт (Терминал/Возможности/О нас)
+  // лежит в .tn-elem с фиксированной шириной, рассчитанной под ДЛИННЫЕ русские
+  // слова, а текст прижат влево. По-русски слова заполняют свои боксы и зазоры
+  // выходят ровные (≈55px), но по-английски слова короче — внутри боксов остаётся
+  // «хвост» пустоты, и видимые отступы разъезжаются (67/98/55).
+  //
+  // Поэтому НЕ пытаемся подгонять один «Блог» под кривые боксы Tilda. Вместо этого
+  // рисуем СВОЙ ряд меню (все четыре пункта) поверх hero одним flex-контейнером с
+  // одинаковым gap, а оригинальные пункты Tilda прячем (visibility:hidden — они
+  // остаются в DOM и их геометрию можно мерить для позиционирования/масштаба).
+  // Так в ОБОИХ языках получаются гарантированно одинаковые отступы на одной линии.
+  var heroPollTimer = null;
+  var NAV_ITEMS = [
+    { href: '#terminal', ru: 'Терминал',    en: 'Terminal' },
+    { href: '#features', ru: 'Возможности', en: 'Features' },
+    { href: '#about',    ru: 'О нас',       en: 'About' },
+    { href: 'blog',      ru: 'Блог',        en: 'Blog' }   // href подставляем по языку
+  ];
+  var NAV_GAP = 55;   // одинаковый видимый зазор между пунктами (как в RU-дизайне)
+
+  function navTilElem(href) {
+    var a = document.querySelector('.nav-link a[href="' + href + '"]');
+    return a ? a.closest('.tn-elem') : null;
+  }
+
+  // Создаём (или находим) собственный ряд меню. Кладём в body, а НЕ в artboard:
+  // Tilda на широких экранах масштабирует зеро-блок (zoom), и вложенный элемент
+  // считался бы в искажённых координатах. Позиционируем по реальной геометрии.
+  function ensureHeroNav() {
+    var nav = document.querySelector('.js-hero-nav');
+    if (nav) return nav;
+    nav = document.createElement('div');
+    nav.className = 'js-hero-nav';
+    nav.style.position = 'absolute';
+    nav.style.display = 'none';
+    nav.style.alignItems = 'center';
+    nav.style.whiteSpace = 'nowrap';
+    nav.style.zIndex = '20';
+    nav.style.color = '#fff';
+    for (var i = 0; i < NAV_ITEMS.length; i++) {
+      var a = document.createElement('a');
+      a.style.color = 'inherit';
+      a.style.textDecoration = 'none';
+      if (NAV_ITEMS[i].href === 'blog') a.className = 'js-blog-link';
+      else a.setAttribute('href', NAV_ITEMS[i].href);
+      nav.appendChild(a);
+    }
+    document.body.appendChild(nav);
+    return nav;
+  }
+
+  function placeHeroNav() {
+    // Чистим возможные клоны от прежних версий скрипта.
+    var stale = document.querySelector('.js-blog-hero');
+    if (stale && stale.parentNode) stale.parentNode.removeChild(stale);
+
+    var tEl = navTilElem('#terminal');
+    var refA = document.querySelector('.nav-link a[href="#terminal"]');
+    if (!tEl || !refA) return;
+    var nav = ensureHeroNav();
+    var tr = tEl.getBoundingClientRect();
+
+    // Скрыт (мобильная раскладка/бургер или ещё не отрисован) — прячем свой ряд,
+    // оригинальные пункты Tilda не трогаем (на мобиле работает бургер-меню).
+    // Проверяем ТОЛЬКО ширину: позиция считается в координатах документа
+    // (tr.top + pageYOffset), поэтому ряд корректно уезжает со страницей при
+    // скролле и его не нужно прятать, когда hero просто прокручен выше вьюпорта.
+    if (tr.width === 0) { nav.style.display = 'none'; return; }
+
+    // Прячем оригинальные пункты Tilda (остаются в DOM для измерений).
+    for (var h = 0; h < NAV_ITEMS.length - 1; h++) {
+      var el = navTilElem(NAV_ITEMS[h].href);
+      if (el) el.style.visibility = 'hidden';
+    }
+
+    // Эффективный масштаб Tilda (zoom на широких экранах): отношение видимой
+    // ширины к layout-ширине. fontSize/gap масштабируем тем же коэффициентом.
+    var scale = tEl.offsetWidth ? (tr.width / tEl.offsetWidth) : 1;
+    if (!scale || !isFinite(scale)) scale = 1;
+
+    var en = currentLang() === 'en';
+    var links = nav.querySelectorAll('a');
+    for (var i = 0; i < NAV_ITEMS.length; i++) {
+      links[i].textContent = en ? NAV_ITEMS[i].en : NAV_ITEMS[i].ru;
+      if (NAV_ITEMS[i].href === 'blog') {
+        links[i].setAttribute('href', en ? '/en/blogs' : '/blogs');
+      }
+    }
+
+    var cs = window.getComputedStyle(refA);
+    nav.style.fontFamily = cs.fontFamily;
+    nav.style.fontWeight = cs.fontWeight;
+    nav.style.fontSize = (parseFloat(cs.fontSize) * scale) + 'px';
+    var ls = parseFloat(cs.letterSpacing);
+    nav.style.letterSpacing = isFinite(ls) ? (ls * scale) + 'px' : 'normal';
+    nav.style.gap = (NAV_GAP * scale) + 'px';
+    nav.style.height = tr.height + 'px';
+    nav.style.left = (tr.left + window.pageXOffset) + 'px';
+    nav.style.top = (tr.top + window.pageYOffset) + 'px';
+    nav.style.display = 'flex';
+  }
+
+  // Пересчитываем позицию, пока Tilda не зафиксирует раскладку (до ~6 c), плюс
+  // отдельные вызовы на resize.
+  function pollHeroPlace() {
+    if (heroPollTimer) clearInterval(heroPollTimer);
+    var ticks = 0;
+    heroPollTimer = setInterval(function () {
+      placeHeroNav();
+      if (++ticks > 60) { clearInterval(heroPollTimer); heroPollTimer = null; }
+    }, 100);
+  }
+  function injectHeroBlog() {
+    try {
+      pollHeroPlace();
+    } catch (e) {}
+  }
+
   function init() {
     buildSwitcher();
+    injectHeroBlog();
     place();
 
     // Capture the original Russian ring text now, before any translation,
@@ -526,10 +646,12 @@
   // Tilda finalises its zero-block layout asynchronously; reposition a few times
   function schedule() {
     [200, 600, 1200, 2500].forEach(function (ms) {
-      setTimeout(function () { place(); balanceStats(); }, ms);
+      setTimeout(function () { place(); balanceStats(); placeHeroNav(); }, ms);
     });
-    window.addEventListener('resize', function () { place(); balanceStats(); });
-    window.addEventListener('orientationchange', function () { setTimeout(function () { place(); balanceStats(); }, 200); });
+    // На resize Tilda пересобирает раскладку асинхронно — поэтому не одиночный
+    // placeHeroBlog(), а pollHeroPlace() (пересчёт несколько секунд, пока не устаканится).
+    window.addEventListener('resize', function () { place(); balanceStats(); pollHeroPlace(); });
+    window.addEventListener('orientationchange', function () { setTimeout(function () { place(); balanceStats(); pollHeroPlace(); }, 200); });
   }
 
   if (document.readyState === 'loading') {
