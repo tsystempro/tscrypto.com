@@ -176,7 +176,7 @@
     // Ссылки на блог ведут в нужную языковую версию (/blogs ↔ /en/blogs).
     var blogLinks = document.querySelectorAll('.js-blog-link');
     for (var bi = 0; bi < blogLinks.length; bi++) {
-      blogLinks[bi].setAttribute('href', en ? '/en/blogs' : '/blogs');
+      blogLinks[bi].setAttribute('href', en ? '/en/blogs/' : '/blogs/');
     }
     updateSeo(lang);
     markActive(lang);
@@ -569,7 +569,7 @@
     for (var i = 0; i < NAV_ITEMS.length; i++) {
       links[i].textContent = en ? NAV_ITEMS[i].en : NAV_ITEMS[i].ru;
       if (NAV_ITEMS[i].href === 'blog') {
-        links[i].setAttribute('href', en ? '/en/blogs' : '/blogs');
+        links[i].setAttribute('href', en ? '/en/blogs/' : '/blogs/');
       }
     }
 
