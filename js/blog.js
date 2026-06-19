@@ -51,10 +51,10 @@
     menu.innerHTML =
       '<button type="button" data-lang="ru"' +
       (cur === 'ru' ? ' class="is-current"' : '') +
-      '>Русский</button>' +
+      '><b>RU</b><span>РУССКИЙ</span></button>' +
       '<button type="button" data-lang="en"' +
       (cur === 'en' ? ' class="is-current"' : '') +
-      '>English</button>';
+      '><b>EN</b><span>ENGLISH</span></button>';
     btn.appendChild(menu);
 
     btn.addEventListener('click', function (e) {

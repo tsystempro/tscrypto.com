@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://tscrypto.com/</loc>
-    <lastmod>2026-06-19T09:33:48+00:00</lastmod>
+    <lastmod>2026-06-19T10:00:52+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="ru" href="https://tscrypto.com/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://tscrypto.com/en/" />
@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://tscrypto.com/en/</loc>
-    <lastmod>2026-06-19T09:33:48+00:00</lastmod>
+    <lastmod>2026-06-19T10:00:52+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="ru" href="https://tscrypto.com/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://tscrypto.com/en/" />
@@ -18,7 +18,7 @@
   </url>
   <url>
     <loc>https://tscrypto.com/blogs/</loc>
-    <lastmod>2026-06-19T09:33:48+00:00</lastmod>
+    <lastmod>2026-06-19T10:00:52+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="ru" href="https://tscrypto.com/blogs/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://tscrypto.com/en/blogs/" />
@@ -26,21 +26,14 @@
   </url>
   <url>
     <loc>https://tscrypto.com/blogs/test1/</loc>
-    <lastmod>2026-06-19T09:33:48+00:00</lastmod>
+    <lastmod>2026-06-19T10:00:52+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="ru" href="https://tscrypto.com/blogs/test1/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://tscrypto.com/blogs/test1/" />
   </url>
   <url>
-    <loc>https://tscrypto.com/blogs/pochemu-traidery-teryayut-dengi/</loc>
-    <lastmod>2026-06-19T09:33:48+00:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://tscrypto.com/blogs/pochemu-traidery-teryayut-dengi/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://tscrypto.com/blogs/pochemu-traidery-teryayut-dengi/" />
-  </url>
-  <url>
     <loc>https://tscrypto.com/en/blogs/</loc>
-    <lastmod>2026-06-19T09:33:48+00:00</lastmod>
+    <lastmod>2026-06-19T10:00:52+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="ru" href="https://tscrypto.com/blogs/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://tscrypto.com/en/blogs/" />

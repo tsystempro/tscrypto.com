@@ -23,7 +23,17 @@
 
 body.tsb {
   margin: 0;
-  background: var(--tsb-bg);
+  /* Сетка фона — как на главной (вертикальные линии каждые 185px). */
+  background-color: var(--tsb-bg);
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.04) 0px,
+    rgba(255, 255, 255, 0.04) 1px,
+    transparent 1px,
+    transparent 185px
+  );
+  background-size: 185px 100%;
+  background-repeat: repeat;
   color: var(--tsb-text);
   font-family: 'Montserrat', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -84,64 +94,84 @@ a { color: inherit; text-decoration: none; }
   transition: color 0.2s ease;
 }
 .tsb-topbar__login:hover { color: var(--tsb-accent); }
+/* CTA «Регистрация» — белая пилюля с тёмным текстом и стрелкой (как на главной). */
 .tsb-topbar__cta {
-  background: var(--tsb-accent);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 600;
-  padding: 9px 18px;
-  border-radius: 6px;
-  border: 1px solid var(--tsb-accent);
-  transition: all 0.2s ease;
-}
-.tsb-topbar__cta:hover { background: transparent; color: var(--tsb-accent); }
-
-/* язык */
-.tsb-lang {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: transparent;
-  border: 1px solid var(--tsb-border-soft);
-  color: #fff;
+  gap: 10px;
+  background: #fff;
+  color: #0a0e14;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding: 12px 22px;
   border-radius: 8px;
-  padding: 6px 10px;
-  font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  border: 1px solid #fff;
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
 }
-.tsb-lang:hover { color: var(--tsb-accent); border-color: var(--tsb-border); }
+.tsb-topbar__cta svg {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), color 0.25s ease;
+}
+.tsb-topbar__cta:hover {
+  background: transparent;
+  border-color: var(--tsb-accent);
+  color: #fff;
+}
+.tsb-topbar__cta:hover svg { color: var(--tsb-accent); transform: translateX(3px); }
+
+/* Переключатель языка — круглый глобус + белое выпадающее меню (как на главной). */
+.tsb-lang {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.tsb-lang:hover { background: rgba(0, 211, 200, 0.16); color: var(--tsb-accent); }
+.tsb-lang svg { width: 22px; height: 22px; display: block; }
 .tsb-lang__menu {
   position: absolute;
-  top: calc(100% + 8px);
+  top: calc(100% + 10px);
   right: 0;
-  min-width: 132px;
-  background: linear-gradient(168deg, #0d2e35, #061318);
-  border: 1px solid var(--tsb-border);
-  border-radius: 12px;
+  min-width: 172px;
+  background: #fff;
+  border: none;
+  border-radius: 14px;
   padding: 6px;
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.22);
   display: none;
 }
 .tsb-lang__menu.is-open { display: block; }
 .tsb-lang__menu button {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   width: 100%;
   text-align: left;
   background: transparent;
   border: 0;
-  color: var(--tsb-text-dim);
+  color: #1a1a1a;
   font-family: inherit;
-  font-size: 14px;
-  padding: 8px 12px;
-  border-radius: 8px;
+  font-size: 15px;
+  line-height: 1;
+  white-space: nowrap;
+  padding: 11px 16px;
+  border-radius: 9px;
   cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
 }
-.tsb-lang__menu button:hover,
-.tsb-lang__menu button.is-current { color: #fff; background: rgba(255, 255, 255, 0.06); }
+.tsb-lang__menu button b { font-weight: 700; letter-spacing: 0.5px; }
+.tsb-lang__menu button:hover { background: rgba(0, 211, 200, 0.12); }
+.tsb-lang__menu button.is-current { color: #00b3aa; }
 
 /* ── Заголовок листинга ── */
 .tsb-list__head { margin-bottom: 28px; }
