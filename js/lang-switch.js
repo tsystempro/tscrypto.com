@@ -37,6 +37,12 @@
   var URL_EN = "https://tscrypto.com/en/";
   var COOKIE = 'site_lang';
 
+  // Kinescope video in the "Crypto broker" card has a localised cut: the page is
+  // served from the same HTML on / and /en/, so the RU id is baked into the markup
+  // and swapped to the EN id when the page is rendered in English.
+  var VIDEO_RU = 'pxc244MuzzHc91CJ7wTmGx';
+  var VIDEO_EN = 'kohtbCy6WgWoPnPheaYRE6';
+
   // Plain leaf text holders (translate textContent only, keep structure)
   var LEAF_SELECTOR = '.tn-atom__button-text, .ts-menu-link span, .ts-menu-btn,' +
     ' .topbar__login, .topbar__cta, .ck-title, .ck-desc, #ckAccept, #ckDecline,' +
@@ -171,6 +177,9 @@
     // PNG, so we swap to a localised English logo (TRADE SYSTEM / INVESTMENT ECOSYSTEM).
     swapLogos(en);
 
+    // 6) Crypto broker video — point the Kinescope player at the localised cut.
+    swapVideos(en);
+
     document.title = en ? TITLE_EN : TITLE_RU;
     document.documentElement.setAttribute('lang', lang);
     // Ссылки на блог ведут в нужную языковую версию (/blogs ↔ /en/blogs).
@@ -264,6 +273,20 @@
           img.setAttribute(attr, target);
         }
       });
+    }
+  }
+
+  // Swap the "Crypto broker" Kinescope player between the RU and EN cuts.
+  // The .kv player only builds its iframe src from data-id on click, so updating
+  // the attribute is enough — no need to touch an already-loaded frame.
+  function swapVideos(en) {
+    var target = en ? VIDEO_EN : VIDEO_RU;
+    var other = en ? VIDEO_RU : VIDEO_EN;
+    var players = document.querySelectorAll('.kv[data-id="' + target + '"], .kv[data-id="' + other + '"]');
+    for (var i = 0; i < players.length; i++) {
+      if (players[i].getAttribute('data-id') !== target) {
+        players[i].setAttribute('data-id', target);
+      }
     }
   }
 
