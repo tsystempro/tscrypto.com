@@ -277,15 +277,21 @@
   }
 
   // Swap the "Crypto broker" Kinescope player between the RU and EN cuts.
-  // The .kv player only builds its iframe src from data-id on click, so updating
-  // the attribute is enough — no need to touch an already-loaded frame.
+  // The .kv player builds its iframe src from data-id on click, so updating the
+  // attribute covers the not-yet-played case. If the visitor already started the
+  // video and then switches language, the loaded frame must be re-pointed at the
+  // new cut so what's on screen matches the chosen language.
   function swapVideos(en) {
     var target = en ? VIDEO_EN : VIDEO_RU;
     var other = en ? VIDEO_RU : VIDEO_EN;
     var players = document.querySelectorAll('.kv[data-id="' + target + '"], .kv[data-id="' + other + '"]');
     for (var i = 0; i < players.length; i++) {
-      if (players[i].getAttribute('data-id') !== target) {
-        players[i].setAttribute('data-id', target);
+      var vp = players[i];
+      if (vp.getAttribute('data-id') === target) continue;
+      vp.setAttribute('data-id', target);
+      if (vp.classList.contains('is-playing')) {
+        var fr = vp.querySelector('.kv__frame');
+        if (fr) fr.src = 'https://kinescope.io/embed/' + target + '?autoplay=1';
       }
     }
   }
