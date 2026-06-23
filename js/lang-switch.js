@@ -180,6 +180,9 @@
     // 6) Crypto broker video — point the Kinescope player at the localised cut.
     swapVideos(en);
 
+    // 7) Localised content screenshots (dashboard / Challenge / referral).
+    swapBgImages(en);
+
     document.title = en ? TITLE_EN : TITLE_RU;
     document.documentElement.setAttribute('lang', lang);
     // Ссылки на блог ведут в нужную языковую версию (/blogs ↔ /en/blogs).
@@ -292,6 +295,42 @@
       if (vp.classList.contains('is-playing')) {
         var fr = vp.querySelector('.kv__frame');
         if (fr) fr.src = 'https://kinescope.io/embed/' + target + '?autoplay=1';
+      }
+    }
+  }
+
+  // Content screenshots that are baked in Russian and have a localised English
+  // cut: the dashboard, the active Challenge card and the referral program.
+  // They are Tilda ".t-bgimg" blocks — the image lives in `data-original` and,
+  // once lazy-loaded, also in the inline `background-image`. We swap both so the
+  // change applies whether or not the block has been scrolled into view yet.
+  // `stem` is a stable token present in both the RU and EN filenames, so the
+  // selector keeps matching after a swap (works in both directions).
+  var BG_MAP = [
+    { stem: 'st_crypta2',
+      ru: 'images/tild3262-6434-4339-b663-646138616534__st_crypta2.png',
+      en: 'images/tild3262-6434-4339-b663-646138616534__st_crypta2_en.jpg' },
+    { stem: 'st_challenge',
+      ru: 'images/tild3861-6234-4561-b166-333637346465__st_challenge.png',
+      en: 'images/tild3861-6234-4561-b166-333637346465__st_challenge_en.jpg' },
+    { stem: 'tc_gon_03',
+      ru: 'images/tild6232-3631-4566-a366-343664393937__tc_gon_03.jpg',
+      en: 'images/tild6232-3631-4566-a366-343664393937__tc_gon_03_en.jpg' }
+  ];
+  function swapBgImages(en) {
+    for (var m = 0; m < BG_MAP.length; m++) {
+      var map = BG_MAP[m];
+      var target = en ? map.en : map.ru;
+      var els = document.querySelectorAll('.t-bgimg[data-original*="' + map.stem + '"]');
+      for (var i = 0; i < els.length; i++) {
+        var el = els[i];
+        if (el.getAttribute('data-original') !== target) {
+          el.setAttribute('data-original', target);
+        }
+        // If Tilda's lazyload already painted the background, repoint it now.
+        if ((el.style.backgroundImage || '').indexOf(map.stem) > -1) {
+          el.style.backgroundImage = 'url("' + target + '")';
+        }
       }
     }
   }
@@ -417,19 +456,52 @@
     return null;
   }
 
+  // The visible "Registration" CTA — the anchor the globe sits next to.
+  function regButton() {
+    var els = document.querySelectorAll('.tn-elem.reg-btn');
+    for (var i = 0; i < els.length; i++) {
+      var t = norm(els[i].textContent);
+      if (t === 'Регистрация' || t === 'Registration') {
+        var r = els[i].getBoundingClientRect();
+        if (els[i].offsetParent && r.width > 0 && r.height > 0 && r.top >= 0 && r.top < 400) return els[i];
+      }
+    }
+    return null;
+  }
+
   // The switcher is absolutely positioned in the document, so it lives on the
   // header line and scrolls away with the page (it is not a fixed overlay).
-  // Horizontal position comes from CSS; the vertical position is aligned with
-  // the header/menu line so the globe sits on the same row as the nav items.
+  // Desktop: the globe sits just to the RIGHT of the "Registration" button and
+  // is centred on it vertically. Mobile / when the button isn't laid out yet:
+  // fall back to the CSS right-edge position, aligned to the header line.
+  var GLOBE_GAP = 14;   // gap between the Registration button and the globe
   function place() {
     if (!box) return;
     if (box.parentNode !== document.body) document.body.appendChild(box);
+    var g = box.firstChild;
+    var gw = g ? g.offsetWidth : 42;
+    var gh = g ? g.offsetHeight : 42;
+
+    var reg = regButton();
+    if (reg) {
+      var r = reg.getBoundingClientRect();
+      var left = r.right + window.pageXOffset + GLOBE_GAP;
+      // Only dock next to the button if the globe still fits on screen.
+      if (left + gw <= window.pageXOffset + document.documentElement.clientWidth - 8) {
+        box.style.left = Math.round(left) + 'px';
+        box.style.right = 'auto';
+        box.style.top = Math.round(r.top + window.pageYOffset + r.height / 2 - gh / 2) + 'px';
+        return;
+      }
+    }
+
+    // Fallback: let CSS handle the horizontal (right edge); align vertically.
+    box.style.left = 'auto';
+    box.style.right = '';
     var ref = headerRef();
     if (ref) {
-      var r = ref.getBoundingClientRect();
-      var half = box.firstChild ? box.firstChild.offsetHeight / 2 : 21;
-      // rect is viewport-relative; add scroll offset to get the document Y
-      box.style.top = Math.round(r.top + window.pageYOffset + r.height / 2 - half) + 'px';
+      var rr = ref.getBoundingClientRect();
+      box.style.top = Math.round(rr.top + window.pageYOffset + rr.height / 2 - gh / 2) + 'px';
     }
   }
 
@@ -622,6 +694,9 @@
     var ticks = 0;
     heroPollTimer = setInterval(function () {
       placeHeroNav();
+      // The globe docks next to the Registration button, whose position keeps
+      // shifting while Tilda reflows after a resize — re-place it each tick too.
+      place();
       if (++ticks > 60) { clearInterval(heroPollTimer); heroPollTimer = null; }
     }, 100);
   }
