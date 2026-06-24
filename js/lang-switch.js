@@ -37,6 +37,13 @@
   var URL_EN = "https://tscrypto.com/en/";
   var COOKIE = 'site_lang';
 
+  // Динамические показатели hero-блока («N лет» / «N бирж»). Цифры задаёт менеджер
+  // в ЛК (раздел «Головной сайт»), бэкенд отдаёт их публично. Если запрос не удался,
+  // на странице остаются цифры, захардкоженные в верстке (12 / 17).
+  var STATS_API = 'https://api.tsystem.pro/api/crypto-head-site/info';
+  var STATS_YEARS_FIELD = 'tn_text_1780552121310';        // «12 лет» / «12 years»
+  var STATS_EXCHANGES_FIELD = 'tn_text_1780552251507000001'; // «17 бирж» / «17 exchanges»
+
   // Kinescope video in the "Crypto broker" card has a localised cut: the page is
   // served from the same HTML on / and /en/, so the RU id is baked into the markup
   // and swapped to the EN id when the page is rendered in English.
@@ -258,6 +265,58 @@
       s12.style.setProperty('font-size', fs + 'px', 'important');
       s17.style.setProperty('font-size', fs + 'px', 'important');
     }
+  }
+
+  // ---- dynamic hero stats ("N years" / "N exchanges") ------------------
+  // Russian plural form for an integer: forms = [one, few, many].
+  //   1 год / 2 года / 5 лет   ·   1 биржа / 2 биржи / 5 бирж
+  function ruPlural(n, forms) {
+    var n10 = n % 10, n100 = n % 100;
+    if (n10 === 1 && n100 !== 11) return forms[0];
+    if (n10 >= 2 && n10 <= 4 && (n100 < 10 || n100 >= 20)) return forms[1];
+    return forms[2];
+  }
+
+  // Replace one stat atom in both languages at once: update the cached Russian
+  // source (data-i18n-ru) and the RU→EN dictionary so the value survives any
+  // later apply() call, then paint the atom in whatever language is on screen.
+  function setStat(field, ru, en) {
+    var el = document.querySelector('[field="' + field + '"]');
+    if (!el) return;
+    el.setAttribute('data-i18n-ru', ru);
+    RU2EN_HTML[textKey(ru)] = en;
+    var want = currentLang() === 'en' ? en : ru;
+    if (el.innerHTML !== want) el.innerHTML = want;
+  }
+
+  function applyStats(data) {
+    if (!data) return;
+    var years = Number(data.yearsCount);
+    var exchanges = Number(data.exchangesCount);
+    if (Number.isFinite(years) && years >= 0) {
+      setStat(
+        STATS_YEARS_FIELD,
+        years + ' ' + ruPlural(years, ['год', 'года', 'лет']),
+        years + (years === 1 ? ' year' : ' years')
+      );
+    }
+    if (Number.isFinite(exchanges) && exchanges >= 0) {
+      setStat(
+        STATS_EXCHANGES_FIELD,
+        exchanges + ' ' + ruPlural(exchanges, ['биржа', 'биржи', 'бирж']),
+        exchanges + (exchanges === 1 ? ' exchange' : ' exchanges')
+      );
+    }
+    balanceStats();   // re-fit the EN font-size now that the text changed
+  }
+
+  function fetchStats() {
+    try {
+      fetch(STATS_API, { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (d) { if (d) applyStats(d); })
+        .catch(function () {});
+    } catch (e) {}
   }
 
   // Localised logo: the Russian original has "Инвестиционная экосистема" baked in;
@@ -710,6 +769,9 @@
     buildSwitcher();
     injectHeroBlog();
     place();
+
+    // Подтягиваем актуальные цифры hero-блока с бэкенда (независимо от языка/пути).
+    fetchStats();
 
     // Capture the original Russian ring text now, before any translation,
     // while data-circle-text is still guaranteed to hold the source string.
